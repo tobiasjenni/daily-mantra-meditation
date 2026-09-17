@@ -13,7 +13,7 @@ test('all numbered slots and saved IDs survive the switch to supplied book text'
 });
 test('missing book text cannot expose or speak an invented practice',()=>{
   const missing=techniques.filter(t=>t.number&&!t.bookExcerpt);assert.equal(missing.length,110);
-  for(const t of missing){assert.equal(t.opening,'');assert.deepEqual(t.steps,[]);assert.deepEqual(t.paragraphs,[]);assert.equal(t.alternative,null);assert.equal(t.name,'Technique '+t.number);}
+  for(const t of missing){assert.equal(t.opening,'');assert.deepEqual(t.steps,[]);assert.deepEqual(t.paragraphs,[]);assert.equal(t.alternative,null);assert.ok(t.name.length>2);assert.doesNotMatch(t.name,/^Technique \d+$/);assert.match(t.source,/^https:\/\/oshoworld\.com\/[a-z0-9-]+$/);}
   const caress=techniqueById('vbt-10'),hope=techniqueById('vbt-68');
   assert.equal(caress.name,'Become the caress');assert.equal(hope.name,'Be hope-less');
   assert.equal(hope.opening,'As a hen mothers her chicks, mother particular knowings, particular doings, in reality.');
@@ -23,5 +23,7 @@ test('missing book text cannot expose or speak an invented practice',()=>{
 test('book library searches the supplied text and numbered pending slots',()=>{
   assert.equal(searchTechniques().length,112);assert.deepEqual(searchTechniques('#68').map(t=>t.number),[68]);
   assert.deepEqual(searchTechniques('caress').map(t=>t.number),[10]);assert.equal(searchTechniques('gentle care of attention').length,0);
-  assert.equal(searchTechniques('','Awaiting text').length,110);assert.equal(searchTechniques('','Book excerpt').length,2);
+  assert.equal(techniqueById('vbt-112').name,'Enter the space within');
+  assert.ok(searchTechniques('breath').length>0);
+  assert.equal(searchTechniques('','Read at source').length,110);assert.equal(searchTechniques('','Book excerpt').length,2);
 });

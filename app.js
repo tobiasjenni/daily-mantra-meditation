@@ -1,9 +1,9 @@
-import {KEY,initialState,plan,remaining,begin,pause,resume,settle,decode} from './core.js?v=663af7d3c71c';
-import {speakMantra,speakGuidance} from './audio.js?v=663af7d3c71c';
-import {techniqueById,validTechnique} from './techniques.js?v=663af7d3c71c';
-import {Soundscape} from './soundscape.js?v=663af7d3c71c';
-import {setupLibrary,escapeHtml} from './library.js?v=663af7d3c71c';
-import {renderVisual,visualFor} from './visuals.js?v=663af7d3c71c';
+import {KEY,initialState,plan,remaining,begin,pause,resume,settle,decode} from './core.js?v=f61d236dfea3';
+import {speakMantra,speakGuidance} from './audio.js?v=f61d236dfea3';
+import {techniqueById,validTechnique} from './techniques.js?v=f61d236dfea3';
+import {Soundscape} from './soundscape.js?v=f61d236dfea3';
+import {setupLibrary,escapeHtml} from './library.js?v=f61d236dfea3';
+import {renderVisual,visualFor} from './visuals.js?v=f61d236dfea3';
 const $=id=>document.getElementById(id);
 let state=initialState();
 let storageOK=true;
@@ -60,7 +60,9 @@ function render() {
     $('technique-meta').textContent=technique.number ? `Technique ${technique.number} · ${technique.kind}`:technique.kind;
     $('technique-steps').innerHTML=technique.steps.map(step=>`<li>${escapeHtml(step)}</li>`).join('');
     $('technique-tip').textContent=technique.tip;
-    $('practice-heading').textContent=technique.id==='mantra'?'How to practice':technique.bookExcerpt?'From the book · excerpts':'Book text pending';
+    $('practice-reading').hidden=!technique.number;
+    $('practice-reading').href=technique.source || '';
+    $('practice-heading').textContent=technique.id==='mantra'?'How to practice':technique.bookExcerpt?'From the book · excerpts':'Read the original commentary';
     $('book-passages').hidden=!technique.bookExcerpt;
     $('book-passages').innerHTML=(technique.paragraphs || []).map(p=>'<p>'+escapeHtml(p)+'</p>').join('<p class="excerpt-gap" aria-label="Passage omitted">[…]</p>');
     $('voice').disabled=!speechAvailable || (technique.number && !technique.bookExcerpt);

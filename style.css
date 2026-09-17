@@ -18,3 +18,5 @@ input[role=switch]{height:44px;margin:0;background:transparent}input[role=switch
 .edition-note,.book-review{font-size:.8rem;line-height:1.6;color:var(--muted);max-width:65ch}.edition-note{padding-left:12px;border-left:2px solid #a68b58;margin:12px 0 18px}.book-review{font-weight:600}
 
 #book-passages{margin:0;font-size:.875rem;line-height:1.8;color:#d2dedb}#book-passages p{margin:0 0 16px}.excerpt-gap{color:var(--muted);text-align:center}
+
+.source-reading{display:inline-flex;gap:12px;align-items:center;color:var(--accent);font-size:.875rem;line-height:1.5;min-height:44px;margin-top:8px;text-underline-offset:4px}.source-reading:hover{color:#fff}

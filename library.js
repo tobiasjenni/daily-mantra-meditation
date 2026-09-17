@@ -1,10 +1,10 @@
-import {techniques,searchTechniques} from './techniques.js?v=663af7d3c71c';
-import {visualFor} from './visuals.js?v=663af7d3c71c';
+import {techniques,searchTechniques} from './techniques.js?v=f61d236dfea3';
+import {visualFor} from './visuals.js?v=f61d236dfea3';
 export const escapeHtml=value=>String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
 export function setupLibrary(selectTechnique,isActive){
   const $=id=>document.getElementById(id);
   const recommended=[10,68];
-  $('technique').innerHTML='<option value="mantra">Baba Nam Kevalam · original practice</option><optgroup label="Supplied book excerpts">'+techniques.filter(t=>recommended.includes(t.number)).map(option).join('')+'</optgroup><optgroup label="Awaiting book text">'+techniques.filter(t=>t.number&&!recommended.includes(t.number)).map(option).join('')+'</optgroup>';
+  $('technique').innerHTML='<option value="mantra">Baba Nam Kevalam · original practice</option><optgroup label="Supplied book excerpts">'+techniques.filter(t=>recommended.includes(t.number)).map(option).join('')+'</optgroup><optgroup label="All other techniques">'+techniques.filter(t=>t.number&&!recommended.includes(t.number)).map(option).join('')+'</optgroup>';
   $('library-theme').innerHTML='<option value="all">All themes</option>'+[...new Set(techniques.filter(t=>t.number).map(t=>t.theme))].sort().map(t=>`<option>${escapeHtml(t)}</option>`).join('');
   $('library-format').innerHTML='<option value="all">All practice types</option>'+[...new Set(techniques.filter(t=>t.number).map(t=>t.format))].sort().map(t=>`<option>${escapeHtml(t)}</option>`).join('');
   function option(t){return `<option value="${t.id}">${t.number}. ${escapeHtml(t.name)}</option>`;}

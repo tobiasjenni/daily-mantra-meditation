@@ -1,3 +1,15 @@
+# Verified title catalogue — 17 September 2026
+
+All 112 numbered technique titles were retrieved from Osho World’s public Tantra Meditations catalogue. Numbers 1–112 occur once each, and every individual commentary URL returned HTTP 200 with the corresponding title present. The displayed wording is retained from the source catalogue, including spelling and edition variants. This establishes catalogue provenance, not identical headings across all editions. Entries 10 and 68 also match the photographed titles. The 80 discourse chapter titles are not used as technique titles.
+
+The current interface exposes every title and a direct commentary link. The supplied excerpts stay available for 10 and 68. No generated practice instructions were restored. Known wording differences from the 2012 ebook contents include 92 (catalogue: “movements”; ebook: “moments”) and 97 (catalogue: “Feel”; ebook: “Fill”). These variants have not been silently merged.
+
+[Numbered source catalogue](https://oshoworld.com/tantra-meditations)
+
+---
+
+## Historical changes
+
 # Direct book text — 17 September 2026
 
 At the user’s request, the public app now withholds all previous app-written meditation guides, titles, and diagrams. Only supplied book passages are displayed: excerpts from entry 10 on page 42 and entry 68 on page 204. No full chapter has been verified. The other 110 numbered slots await the exact edition’s pages. Existing saved technique IDs and timer progress are preserved.
