@@ -1,3 +1,134 @@
+# Practical guidance review — 17 September 2026
+
+The current release adds new, concise procedural summaries for all 112 entries while preserving the accepted titles. These are app-written summaries of Osho World’s published Osho commentaries, not verbatim book text, a complete retelling, or a claim to have compared every page of the exact Tapoban edition. Each guide has a focus, three steps, a specific note, and a source link.
+
+The commentary pages were retrieved individually and their procedural passages reviewed. Catalogue pages 3, 4, and 5 contain repeated breathing commentary, and page 100 repeats method 110. The guides therefore link to the corresponding original discourses: volume 1, discourse 3 for methods 3–4; volume 1, discourse 5 for method 5; volume 2, discourse 33 for method 100. The catalogue title provenance is retained separately.
+
+Methods 15, 34, and 46 provide clearly labeled teacher-led orientation, not full physical procedures. Methods 11, 27, and 108 explicitly label their adaptations. When only one of several source options is summarized, the note identifies it. Spiritual models and imagery are not presented as established physical facts or promised outcomes. The prior generated catalogue and diagrams have not been restored.
+
+Notable distinctions checked include 22 (reverse-order review), 30 (quiet eye movement), 44 (the middle U of Aum), 62 versus 78 (open awareness versus staying at a focus), 68 (present reality, direct knowing, authentic doing), 82 (inner knowing, not anatomical organs), and 100 versus 110 (witnessing attraction versus playfulness).
+
+Validation: 23 automated tests cover catalogue completeness, preserved titles and saved IDs, guidance/source coverage, specific content regressions, rendering all 112 entries, once-only speech, timer recovery, independent sound settings, and audio completion. Manual responsive preview and published-asset comparison accompany deployment.
+
+| No. | Retained title | Guide type | Practice source |
+| --- | --- | --- | --- |
+| 1 | Watch the gap between two breaths | Practical summary | [Commentary](https://oshoworld.com/watch-the-gap-between-two-breaths) |
+| 2 | Watch the turning point between two breaths | Practical summary | [Commentary](https://oshoworld.com/watch-the-turning-point-between-two-breaths) |
+| 3 | Watch the fusion point of two breaths | Practical summary | [Commentary](https://oshoworld.com/vigyan-bhairav-tantra-vol-1-03) |
+| 4 | Be aware when breathing stops | Practical summary | [Commentary](https://oshoworld.com/vigyan-bhairav-tantra-vol-1-03) |
+| 5 | Focus your attention on the third eye | Practical summary | [Commentary](https://oshoworld.com/vigyan-bhairav-tantra-vol-1-05) |
+| 6 | Focus on the gap during your daily activities | Practical summary | [Commentary](https://oshoworld.com/focus-on-the-gap-during-your-daily-activities) |
+| 7 | A technique to be aware in dreams | Practical summary | [Commentary](https://oshoworld.com/a-technique-to-be-aware-in-dreams) |
+| 8 | Watch the turning point with devotion | Practical summary | [Commentary](https://oshoworld.com/watch-the-turning-point-with-devotion) |
+| 9 | a) Lie down as dead, b) Stare without blinking, c) Suck something and become the sucking | Practical summary | [Commentary](https://oshoworld.com/a-lie-down-as-dead-b-stare-without-blinking-c-suck-something-and-become-the-sucking) |
+| 10 | Become the caress | Practical summary | [Commentary](https://oshoworld.com/become-the-caress) |
+| 11 | Close your senses, become stonelike | Adapted practice | [Commentary](https://oshoworld.com/close-your-senses-become-stonelike) |
+| 12 | Let yourself become weightless | Practical summary | [Commentary](https://oshoworld.com/let-yourself-become-weightless) |
+| 13 | Concentrate totally on one object | Practical summary | [Commentary](https://oshoworld.com/concentrate-totally-on-one-object) |
+| 14 | Put your awareness on your spine | Practical summary | [Commentary](https://oshoworld.com/put-your-awareness-on-your-spine) |
+| 15 | Close all the openings of your head | Teacher-led method | [Commentary](https://oshoworld.com/close-all-the-openings-of-your-head) |
+| 16 | Absorb the senses in your heart | Practical summary | [Commentary](https://oshoworld.com/absorb-the-senses-in-your-heart) |
+| 17 | Do not choose, keep in the middle | Practical summary | [Commentary](https://oshoworld.com/do-not-choose-keep-in-the-middle) |
+| 18 | Look lovingly at an object | Practical summary | [Commentary](https://oshoworld.com/look-lovingly-at-an-object) |
+| 19 | Sit on your buttocks only | Practical summary | [Commentary](https://oshoworld.com/sit-on-your-buttocks-only) |
+| 20 | How to meditate in a moving vehicle | Practical summary | [Commentary](https://oshoworld.com/how-to-meditate-in-a-moving-vehicle) |
+| 21 | Concentrate on a pain in your body | Practical summary | [Commentary](https://oshoworld.com/concentrate-on-a-pain-in-your-body) |
+| 22 | Look at your past dis-identified | Practical summary | [Commentary](https://oshoworld.com/look-at-your-past-dis-identified) |
+| 23 | Feel an object and become it | Practical summary | [Commentary](https://oshoworld.com/feel-an-object-and-become-it) |
+| 24 | Watch your moods | Practical summary | [Commentary](https://oshoworld.com/watch-your-moods) |
+| 25 | Stop! | Practical summary | [Commentary](https://oshoworld.com/tantra-stop) |
+| 26 | Face any desire | Practical summary | [Commentary](https://oshoworld.com/face-any-desire) |
+| 27 | exhaust yourself and drop to the ground | Adapted practice | [Commentary](https://oshoworld.com/exhaust-yourself-and-drop-to-the-ground) |
+| 28 | Imagine yourself losing all energy | Practical summary | [Commentary](https://oshoworld.com/imagine-yourself-losing-all-energy) |
+| 29 | Devote yourself | Practical summary | [Commentary](https://oshoworld.com/devote-yourself) |
+| 30 | Close the eyes and stop their movement | Practical summary | [Commentary](https://oshoworld.com/close-the-eyes-and-stop-their-movement) |
+| 31 | Look at an object as a whole | Practical summary | [Commentary](https://oshoworld.com/look-at-an-object-as-a-whole) |
+| 32 | Look at an object as if for the first time | Practical summary | [Commentary](https://oshoworld.com/look-at-an-object-as-if-for-the-first-time) |
+| 33 | Look into the limitless sky | Practical summary | [Commentary](https://oshoworld.com/look-into-the-limitless-sky) |
+| 34 | A secret method | Teacher-led method | [Commentary](https://oshoworld.com/a-secret-method) |
+| 35 | Look into a deep well | Practical summary | [Commentary](https://oshoworld.com/look-into-a-deep-well) |
+| 36 | Withdraw yourself completely | Practical summary | [Commentary](https://oshoworld.com/withdraw-yourself-completely) |
+| 37 | Beyond words and sounds | Practical summary | [Commentary](https://oshoworld.com/beyond-words-and-sounds) |
+| 38 | Feel yourself in the centre of sounds | Practical summary | [Commentary](https://oshoworld.com/feel-yourself-in-the-centre-of-sounds) |
+| 39 | Intone a sound and become it | Practical summary | [Commentary](https://oshoworld.com/intone-a-sound-and-become-it) |
+| 40 | Listen to a fading sound | Practical summary | [Commentary](https://oshoworld.com/listen-to-a-fading-sound) |
+| 41 | Listen to a stringed instrument | Practical summary | [Commentary](https://oshoworld.com/listen-to-a-stringed-instrument) |
+| 42 | Use sound as passage toward feeling | Practical summary | [Commentary](https://oshoworld.com/use-sound-as-passage-toward-feeling) |
+| 43 | Focus your mind on the tongue | Practical summary | [Commentary](https://oshoworld.com/focus-your-mind-on-the-tongue) |
+| 44 | A method for those with a sensitive ear | Practical summary | [Commentary](https://oshoworld.com/a-method-for-those-with-a-sensitive-ear) |
+| 45 | intone a word ending in 'Ah' | Practical summary | [Commentary](https://oshoworld.com/intone-a-word-ending-in-ah) |
+| 46 | Closing ears and contracting rectum | Teacher-led method | [Commentary](https://oshoworld.com/closing-ears-and-contracting-rectum) |
+| 47 | Use your name as a mantra | Practical summary | [Commentary](https://oshoworld.com/use-your-name-as-a-mantra) |
+| 48 | In the sex act, do not seek release | Practical summary | [Commentary](https://oshoworld.com/in-the-sex-act-do-not-seek-release) |
+| 49 | Shaking in sex | Practical summary | [Commentary](https://oshoworld.com/shaking-in-sex) |
+| 50 | Make love without the partner | Practical summary | [Commentary](https://oshoworld.com/make-love-without-the-partner) |
+| 51 | When joy arises, become it | Practical summary | [Commentary](https://oshoworld.com/when-joy-arises-become-it) |
+| 52 | Eat and drink consciously | Practical summary | [Commentary](https://oshoworld.com/eat-and-drink-consciously) |
+| 53 | Self-remembering | Practical summary | [Commentary](https://oshoworld.com/self-remembering) |
+| 54 | Feel the satisfaction | Practical summary | [Commentary](https://oshoworld.com/feel-the-satisfaction) |
+| 55 | Be aware of gap between waking & sleep | Practical summary | [Commentary](https://oshoworld.com/be-aware-of-gap-between-waking-and-sleep) |
+| 56 | Think of the world as an illusion | Practical summary | [Commentary](https://oshoworld.com/think-of-the-world-as-an-illusion) |
+| 57 | Be undisturbed by desires | Practical summary | [Commentary](https://oshoworld.com/be-undisturbed-by-desires) |
+| 58 | See the world as a drama | Practical summary | [Commentary](https://oshoworld.com/see-the-world-as-a-drama) |
+| 59 | Stay in the middle between two polarities | Practical summary | [Commentary](https://oshoworld.com/stay-in-the-middle-between-two-polarities) |
+| 60 | Acceptance | Practical summary | [Commentary](https://oshoworld.com/acceptance) |
+| 61 | Experience existence as wave-ing | Practical summary | [Commentary](https://oshoworld.com/experience-existence-as-wave-ing) |
+| 62 | Use mind as the door to meditation | Practical summary | [Commentary](https://oshoworld.com/use-mind-as-the-door-to-meditation) |
+| 63 | Be aware who is sensing | Practical summary | [Commentary](https://oshoworld.com/be-aware-who-is-sensing) |
+| 64 | At the beginning of a strong sensation, be aware | Practical summary | [Commentary](https://oshoworld.com/at-the-beginning-of-a-strong-sensation-be-aware) |
+| 65 | Do not judge | Practical summary | [Commentary](https://oshoworld.com/do-not-judge) |
+| 66 | Be aware of that which never changes in you | Practical summary | [Commentary](https://oshoworld.com/be-aware-of-that-which-never-changes-in-you) |
+| 67 | Remember that everything changes | Practical summary | [Commentary](https://oshoworld.com/remember-that-everything-changes) |
+| 68 | Be hope-less | Practical summary | [Commentary](https://oshoworld.com/be-hope-less) |
+| 69 | Go beyond bondage and freedom | Practical summary | [Commentary](https://oshoworld.com/go-beyond-bondage-and-freedom) |
+| 70 | Visualize light rays rising up your spine | Practical summary | [Commentary](https://oshoworld.com/visualize-light-rays-rising-up-your-spine) |
+| 71 | Visualize a spark of light jumping from one chakra to the next | Practical summary | [Commentary](https://oshoworld.com/visualize-a-spark-of-light-jumping-from-one-chakra-to-the-next) |
+| 72 | Feel the presence of the ever-living existence | Practical summary | [Commentary](https://oshoworld.com/feel-the-presence-of-the-ever-living-existence) |
+| 73 | Become the clarity of the cloudless sky | Practical summary | [Commentary](https://oshoworld.com/become-the-clarity-of-the-cloudless-sky) |
+| 74 | Feel the whole universe in your head | Practical summary | [Commentary](https://oshoworld.com/feel-the-whole-universe-in-your-head) |
+| 75 | Remember yourself as light | Practical summary | [Commentary](https://oshoworld.com/remember-yourself-as-light) |
+| 76 | Dissolve into darkness | Practical summary | [Commentary](https://oshoworld.com/dissolve-into-darkness) |
+| 77 | Bringing out the inner darkness | Practical summary | [Commentary](https://oshoworld.com/bringing-out-the-inner-darkness) |
+| 78 | Develop pure attentiveness | Practical summary | [Commentary](https://oshoworld.com/develop-pure-attentiveness) |
+| 79 | Focus on fire | Practical summary | [Commentary](https://oshoworld.com/focus-on-fire) |
+| 80 | Imagine the whole world burning | Practical summary | [Commentary](https://oshoworld.com/imagine-the-whole-world-burning) |
+| 81 | Everything converges in your being | Practical summary | [Commentary](https://oshoworld.com/everything-converges-in-your-being) |
+| 82 | Feel, don't think | Practical summary | [Commentary](https://oshoworld.com/feel-dont-think) |
+| 83 | Change your focus to the gaps | Practical summary | [Commentary](https://oshoworld.com/change-your-focus-to-the-gaps) |
+| 84 | Detach yourself from your body | Practical summary | [Commentary](https://oshoworld.com/detach-yourself-from-your-body) |
+| 85 | Think of nothing | Practical summary | [Commentary](https://oshoworld.com/think-of-nothing) |
+| 86 | Imagine the unimaginable | Practical summary | [Commentary](https://oshoworld.com/imagine-the-unimaginable) |
+| 87 | Feel I am | Practical summary | [Commentary](https://oshoworld.com/feel-i-am) |
+| 88 | Know the knower and the known | Practical summary | [Commentary](https://oshoworld.com/know-the-knower-and-the-known) |
+| 89 | Include everything in your being | Practical summary | [Commentary](https://oshoworld.com/include-everything-in-your-being) |
+| 90 | Touch your eyes lightly | Practical summary | [Commentary](https://oshoworld.com/touch-your-eyes-lightly) |
+| 91 | Experience your etheric body | Practical summary | [Commentary](https://oshoworld.com/experience-your-etheric-body) |
+| 92 | Be aware of movements of no-thought | Practical summary | [Commentary](https://oshoworld.com/be-aware-of-movements-of-no-thought) |
+| 93 | Consider the body limitless | Practical summary | [Commentary](https://oshoworld.com/consider-the-body-limitless) |
+| 94 | Feel yourself saturated | Practical summary | [Commentary](https://oshoworld.com/feel-yourself-saturated) |
+| 95 | Concentrate on the breasts, or on the root of the penis | Practical summary | [Commentary](https://oshoworld.com/concentrate-on-the-breasts-or-on-the-root-of-the-penis) |
+| 96 | Look into unlimited space | Practical summary | [Commentary](https://oshoworld.com/look-into-unlimited-space) |
+| 97 | Feel endless space with your bliss body | Practical summary | [Commentary](https://oshoworld.com/feel-endless-space-with-your-bliss-body) |
+| 98 | Feel the peace in your heart | Practical summary | [Commentary](https://oshoworld.com/feel-the-peace-in-your-heart) |
+| 99 | Expand in all directions | Practical summary | [Commentary](https://oshoworld.com/expand-in-all-directions) |
+| 100 | Remain detached | Practical summary | [Commentary](https://oshoworld.com/vigyan-bhairav-tantra-vol-2-33) |
+| 101 | Believe that you are all powerful | Practical summary | [Commentary](https://oshoworld.com/believe-that-you-are-all-powerful) |
+| 102 | Imagine spirit within and without | Practical summary | [Commentary](https://oshoworld.com/imagine-spirit-within-and-without) |
+| 103 | Do not fight with desire | Practical summary | [Commentary](https://oshoworld.com/do-not-fight-with-desire) |
+| 104 | The limits of perception | Practical summary | [Commentary](https://oshoworld.com/the-limits-of-perception) |
+| 105 | Realize the oneness of existence | Practical summary | [Commentary](https://oshoworld.com/realize-the-oneness-of-existence) |
+| 106 | Become each being | Practical summary | [Commentary](https://oshoworld.com/become-each-being) |
+| 107 | Know only consciousness exists | Practical summary | [Commentary](https://oshoworld.com/know-only-consciousness-exists) |
+| 108 | Become your own inner guide | Adapted practice | [Commentary](https://oshoworld.com/become-your-own-inner-guide) |
+| 109 | Feel your body as empty | Practical summary | [Commentary](https://oshoworld.com/feel-your-body-as-empty) |
+| 110 | Be playful in activity | Practical summary | [Commentary](https://oshoworld.com/be-playful-in-activity) |
+| 111 | Beyond knowing and not-knowing | Practical summary | [Commentary](https://oshoworld.com/beyond-knowing-and-notknowing) |
+| 112 | Enter the space within | Practical summary | [Commentary](https://oshoworld.com/enter-the-space-within) |
+
+---
+
+## Historical records — superseded by the review above
+
 # Verified title catalogue — 17 September 2026
 
 All 112 numbered technique titles were retrieved from Osho World’s public Tantra Meditations catalogue. Numbers 1–112 occur once each, and every individual commentary URL returned HTTP 200 with the corresponding title present. The displayed wording is retained from the source catalogue, including spelling and edition variants. This establishes catalogue provenance, not identical headings across all editions. Entries 10 and 68 also match the photographed titles. The 80 discourse chapter titles are not used as technique titles.

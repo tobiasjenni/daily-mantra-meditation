@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {KEY} from './core.js';
+import {techniques} from './techniques.js';
 
 test('Start speaks once; pause/resume, reload, storage synchronization and ticks never replay it',async()=>{
   const elements=new Map();
@@ -55,12 +56,10 @@ test('Start speaks once; pause/resume, reload, storage synchronization and ticks
     }
     elements.get('technique').value='breath';elements.get('technique').listeners.change();
     assert.equal(speech.length,2,'choosing a technique is silent');
-    assert.equal(elements.get('voice').disabled,true);
-    elements.get('voice').checked=true;elements.get('start').listeners.click();assert.equal(speech.length,2,'pending book text must never speak the old guide');
-    elements.get('reset').listeners.click();
+    assert.equal(elements.get('voice').disabled,false);
     elements.get('technique').value='vbt-10';elements.get('technique').listeners.change();
     elements.get('voice').checked=true;elements.get('voice').listeners.change();
-    elements.get('start').listeners.click();assert.equal(speech.length,3);assert.match(speech[2].text,/While being caressed/);
+    elements.get('start').listeners.click();assert.equal(speech.length,3);assert.match(speech[2].text,/receive a gentle caress/);
     assert.equal(elements.get('technique').disabled,true);
     elements.get('technique').value='gaze';elements.get('technique').listeners.change();
     assert.equal(JSON.parse(data.get(KEY)).session.technique,'vbt-10','active session technique is locked');
@@ -78,6 +77,7 @@ test('Start speaks once; pause/resume, reload, storage synchronization and ticks
     assert.equal(elements.get('library-dialog').open,false);assert.equal(elements.get('mantra-title').textContent,'Enter the space within');
     assert.equal(JSON.parse(data.get(KEY)).technique,'vbt-112');assert.equal(speech.length,4);
     elements.get('library-clear').listeners.click();assert.equal(elements.get('library-count').textContent,'112 of 112 techniques');
+    assert.doesNotMatch(elements.get('library-results').innerHTML,/Visual guide/);
     elements.get('library-search').value='no-such-technique';elements.get('library-search').listeners.input();assert.equal(elements.get('library-empty').hidden,false);
     elements.get('library-clear').listeners.click();
     elements.get('library-visual').checked=true;elements.get('library-visual').listeners.change();
@@ -91,6 +91,16 @@ test('Start speaks once; pause/resume, reload, storage synchronization and ticks
     elements.get('technique').value='vbt-44';elements.get('technique').listeners.change();
     assert.equal(elements.get('technique-alternative').hidden,true);assert.equal(elements.get('technique-alternative-text').textContent,'');
     assert.equal(elements.get('visual-help').hidden,true);assert.equal(elements.get('visual-content').innerHTML,'');
+    for(const t of techniques.filter(t=>t.number)){
+      elements.get('technique').value=t.id;elements.get('technique').listeners.change();
+      assert.equal(elements.get('mantra-title').textContent,t.name);
+      assert.equal((elements.get('technique-steps').innerHTML.match(/<li>/g)||[]).length,3);
+      assert.equal(elements.get('practice-reading').href,t.source);
+      assert.equal(elements.get('voice').disabled,false);
+      assert.equal(elements.get('book-excerpt-details').hidden,!t.bookExcerpt);
+      assert.equal(elements.get('book-excerpt-details').open,false);
+    }
+    assert.equal(speech.length,4,'rendering all guides never starts speech');
     elements.get('technique').value='mantra';elements.get('technique').listeners.change();
     assert.equal(elements.get('visual-help').hidden,true);assert.equal(elements.get('visual-content').innerHTML,'');
     assert.equal(elements.get('technique-context').hidden,true);

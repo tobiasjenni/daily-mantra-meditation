@@ -20,3 +20,4 @@ input[role=switch]{height:44px;margin:0;background:transparent}input[role=switch
 #book-passages{margin:0;font-size:.875rem;line-height:1.8;color:#d2dedb}#book-passages p{margin:0 0 16px}.excerpt-gap{color:var(--muted);text-align:center}
 
 .source-reading{display:inline-flex;gap:12px;align-items:center;color:var(--accent);font-size:.875rem;line-height:1.5;min-height:44px;margin-top:8px;text-underline-offset:4px}.source-reading:hover{color:#fff}
+.practice-summary-label{font-size:.75rem;line-height:1.5;color:var(--muted);margin:-6px 0 18px}.technique-guide .technique-tip{border-left:2px solid #789286;padding-left:12px}.technique-guide ol:empty{display:none}#book-excerpt-details{margin-top:16px;border-top:1px solid var(--border)}

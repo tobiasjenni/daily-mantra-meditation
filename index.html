@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0d272b">
-  <meta name="description" content="A meditation timer with optional audio and supplied excerpts from Osho’s Vigyan Bhairav Tantra. All 112 technique titles link to Osho’s commentary.">
+  <meta name="description" content="Explore 112 Osho meditation techniques with practical summaries, original commentary links, and a timer with optional opening guidance, music, and gong.">
   <title>Daily Mantra · Baba Nam Kevalam</title>
-  <link rel="icon" href="./favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./style.css?v=f61d236dfea3">
-  <script type="module" src="./app.js?v=f61d236dfea3"></script>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./style.css?v=1770a8d45b7e">
+  <script type="module" src="./app.js?v=1770a8d45b7e"></script>
 </head>
 <body>
   <a class="skip-link" href="#start">Skip to meditation</a>
@@ -28,23 +28,18 @@
       </section>
       <aside class="preferences" aria-label="Meditation preferences">
         <section class="technique-panel" aria-labelledby="technique-heading">
-          <div class="technique-panel-top"><span class="eyebrow">FIND YOUR PRACTICE</span><span class="library-badge">112 techniques</span></div><h2 id="technique-heading">A way into stillness</h2><p class="edition-note">All 112 titles are checked against Osho World’s numbered catalogue. Each technique links to its commentary.</p>
+          <div class="technique-panel-top"><span class="eyebrow">FIND YOUR PRACTICE</span><span class="library-badge">112 techniques</span></div><h2 id="technique-heading">A way into stillness</h2><p class="edition-note">Choose a technique, read its practical guide, then begin. Each guide links to Osho’s commentary.</p>
           <label class="small-label" for="technique">Choose your meditation</label>
           <select id="technique" aria-describedby="technique-lock">
             <option value="mantra">Baba Nam Kevalam · original practice</option>
-            <optgroup label="Inspired by The Book of Secrets">
-              <option value="breath">Between two breaths · start here</option>
-              <option value="listening">The center of sound</option>
-              <option value="gaze">A loving gaze</option>
-              <option value="joy">Rest in joy</option>
-            </optgroup>
           </select>
           <button class="browse-button" id="browse-techniques" type="button">Explore all 112 <span aria-hidden="true">↗</span></button>
           <p class="fine-print" id="technique-lock">Your choice is saved for next time.</p>
-          <div class="technique-guide" aria-live="polite"><p class="technique-meta" id="technique-meta"></p><h3 id="practice-heading">How to practice</h3><ol id="technique-steps"></ol><blockquote id="book-passages" hidden></blockquote><p class="technique-tip" id="technique-tip"></p><a class="source-reading" id="practice-reading" target="_blank" rel="noopener noreferrer" hidden>Read Osho’s commentary <span aria-hidden="true">↗</span></a></div>
+          <div class="technique-guide" aria-live="polite"><p class="technique-meta" id="technique-meta"></p><h3 id="practice-heading">How to practice</h3><p id="practice-summary-label" class="practice-summary-label" hidden></p><ol id="technique-steps"></ol><p class="technique-tip" id="technique-tip"></p><a class="source-reading" id="practice-reading" target="_blank" rel="noopener noreferrer" hidden>Read Osho’s commentary <span aria-hidden="true">↗</span></a></div>
+          <details id="book-excerpt-details" class="source-context" hidden><summary>From your book · photographed excerpt</summary><blockquote id="book-passages"></blockquote></details>
           <details id="visual-help" class="visual-help" hidden><summary><span>Visual guide <small>Optional</small></span><span class="expand-icon" aria-hidden="true">+</span></summary><div id="visual-content"></div><p class="visual-footnote">Read, then look away when you’re ready. Nothing here sets your pace.</p></details>
-          <div id="technique-context" hidden><p class="approach-label" id="technique-approach"></p><p class="book-review" id="technique-book-review"></p><details class="source-context"><summary>Source &amp; adaptation</summary><p id="technique-source-note"></p><div id="technique-alternative" hidden><h4>Another way to approach this practice</h4><p id="technique-alternative-text"></p></div><a id="technique-source" target="_blank" rel="noopener noreferrer" hidden>View this entry in the numbered source ↗</a><p class="fine-print">App numbers follow the Reps/Osho sequence, not Sanskrit verse numbers. Only supplied passages are quoted; missing commentary is not reconstructed.</p></details></div>
-          <details class="technique-about"><summary>About the book text</summary><p>The reference is Osho’s Vigyan Bhairav Tantra, Osho Tapoban, ISBN 978-9937-758-31-4. Entries 10 and 68 contain selected passages from supplied photographs of pages 42 and 204. All 112 technique titles are taken from <a href="https://oshoworld.com/tantra-meditations" target="_blank" rel="noopener noreferrer">Osho World’s numbered catalogue</a>, with a matching commentary link for each. These are technique numbers, not discourse chapter numbers. Title wording may differ from the Tapoban edition; a complete comparison with that print edition has not been established.</p><p>The previous app-written titles, guides, spoken instructions, and diagrams are withheld. No missing book instructions have been reconstructed. Baba Nam Kevalam remains a separate practice. The timer and optional sounds are app features.</p></details>
+          <div id="technique-context" hidden><p class="approach-label" id="technique-approach"></p><p class="book-review" id="technique-book-review"></p><details class="source-context"><summary>Source &amp; adaptation</summary><p id="technique-source-note"></p><div id="technique-alternative" hidden><h4>Another way to approach this practice</h4><p id="technique-alternative-text"></p></div><a id="technique-source" target="_blank" rel="noopener noreferrer" hidden>Read Osho’s commentary ↗</a><p class="fine-print">App numbers follow the Reps/Osho sequence, not Sanskrit verse numbers. Practice steps summarize the commentary; they are not the book’s original wording.</p></details></div>
+          <details class="technique-about"><summary>About these guides</summary><p>The reference is Osho’s Vigyan Bhairav Tantra, Osho Tapoban, ISBN 978-9937-758-31-4. All 112 titles follow <a href="https://oshoworld.com/tantra-meditations" target="_blank" rel="noopener noreferrer">Osho World’s numbered catalogue</a>. The practical steps are concise summaries based on its published Osho commentaries, not quotations or complete chapters. Read the linked commentary for the fuller explanation. Material adaptations are identified; techniques 15, 34, and 46 provide orientation for work with a teacher.</p><p>Entries 10 and 68 also retain excerpts from your supplied photographs of pages 42 and 204. A complete comparison with every page of the Tapoban print edition has not been established. Baba Nam Kevalam is a separate practice. Session duration, optional voice, music, and gong are app features, not prescribed durations or requirements for these techniques.</p></details>
         </section>
         <section class="sound-panel" aria-labelledby="sound-title">
           <div class="panel-heading"><div><span class="eyebrow">MAKE IT YOURS</span><h2 id="sound-title">Your soundscape</h2></div><button class="quiet-button" id="silence">All sounds off</button></div>
@@ -78,7 +73,7 @@
   <dialog id="restart-dialog" aria-labelledby="restart-title"><form method="dialog"><h2 id="restart-title">Begin again?</h2><p>This resets your progression and current timer. Your next Start begins day one at 6 minutes. Your sound choices stay saved.</p><div class="dialog-actions"><button value="cancel" class="small-button">Keep my progress</button><button value="restart" class="primary">Restart practice</button></div></form></dialog>
   <dialog id="library-dialog" class="library-dialog" aria-labelledby="library-title">
     <div class="library-header"><div><span class="eyebrow">VIGYAN BHAIRAV TANTRA</span><h2 id="library-title">112 ways to begin</h2><p class="edition-note">112 source-checked titles, with a commentary link for every technique.</p></div><form method="dialog"><button class="quiet-button" aria-label="Close technique library">Close</button></form></div>
-    <p class="library-intro">Search by technique title or number. Choose a technique to open its original commentary and use the meditation timer.</p>
+    <p class="library-intro">Find a technique by title, number, or practice detail. Each includes a concise practical guide and a link to Osho’s commentary. Teacher-led methods are marked.</p>
     <div class="library-filters"><div class="library-search"><label for="library-search" class="small-label">Search by name, number, or phrase</label><input type="search" id="library-search" placeholder="Try breath, sound, or 38" autocomplete="off"></div><div><label class="small-label" for="library-theme">Theme</label><select id="library-theme"><option value="all">All themes</option></select></div><div><label class="small-label" for="library-format">Practice type</label><select id="library-format"><option value="all">All practice types</option></select></div></div>
     <label class="visual-filter" hidden><input type="checkbox" id="library-visual"> With a visual guide</label>
     <div class="library-toolbar"><p id="library-count" role="status">112 techniques</p><button id="library-clear" class="text-button" type="button">Clear filters</button></div>
