@@ -52,3 +52,11 @@ test('invalid or unavailable stored data safely falls back',()=>{
   assert.deepEqual(decode(JSON.stringify({...initialState(),zone:'Invalid/Place'})),initialState());
   assert.equal(decode(JSON.stringify({...initialState(),override:{date:'2026-09-10',minutes:-1}})).override,null);
 });
+test('existing progress migrates without losing the first-session date and independently saves audio preferences',()=>{
+  const old=begin(initialState(),Date.parse('2026-09-10T12:00:00Z'),'UTC');delete old.music;delete old.musicVolume;delete old.gongVolume;
+  const migrated=decode(JSON.stringify(old));assert.equal(migrated.startDate,'2026-09-10');assert.equal(migrated.music,false);assert.equal(migrated.musicVolume,25);
+  const prefs={...migrated,music:true,voice:false,bell:true,musicVolume:14,gongVolume:70};assert.deepEqual(decode(JSON.stringify(prefs)),prefs);
+});
+test('a backward clock change cannot extend the countdown beyond the selected session length',()=>{
+  const state=begin(initialState(),1000000,'UTC');assert.equal(remaining(state.session,0),360000);
+});

@@ -5,7 +5,7 @@ export function dayKey(now = Date.now(), zone = Intl.DateTimeFormat().resolvedOp
   return `${get('year')}-${get('month')}-${get('day')}`;
 }
 export function dayNumber(key) { return Date.parse(`${key}T00:00:00Z`) / 86400000; }
-export function initialState() { return {version:1,startDate:null,zone:null,bell:false,voice:true,voiceURI:null,override:null,session:null}; }
+export function initialState() { return {version:1,startDate:null,zone:null,bell:false,voice:true,voiceURI:null,music:false,musicVolume:25,gongVolume:55,override:null,session:null}; }
 export function plan(state, now = Date.now()) {
   const today = dayKey(now, state.zone || undefined);
   const day = state.startDate ? Math.max(0, dayNumber(today)-dayNumber(state.startDate))+1 : 1;
@@ -14,7 +14,7 @@ export function plan(state, now = Date.now()) {
 }
 export function remaining(session, now = Date.now()) {
   if (!session) return 0;
-  return session.status === 'running' ? Math.max(0,session.endAt-now) : session.remainingMs;
+  return session.status === 'running' ? Math.min(session.totalMs,Math.max(0,session.endAt-now)) : session.remainingMs;
 }
 export function begin(state, now = Date.now(), zone = Intl.DateTimeFormat().resolvedOptions().timeZone) {
   const next = structuredClone(state);
@@ -45,7 +45,8 @@ export function decode(raw) {
     if(s.startDate!==null && (typeof s.startDate!=='string' || !/^\d{4}-\d{2}-\d{2}$/.test(s.startDate) || !Number.isFinite(dayNumber(s.startDate)))) return fallback;
     if(s.startDate && typeof s.zone!=='string') return fallback;
     if(s.zone) dayKey(Date.now(),s.zone);
-    const result={...fallback,startDate:s.startDate,zone:s.zone || null,bell:s.bell===true,voice:s.voice!==false,voiceURI:typeof s.voiceURI==='string' ? s.voiceURI:null};
+    const result={...fallback,startDate:s.startDate,zone:s.zone || null,bell:s.bell===true,voice:s.voice!==false,voiceURI:typeof s.voiceURI==='string' ? s.voiceURI:null,music:s.music===true};
+    for(const field of ['musicVolume','gongVolume']) if(Number.isFinite(s[field]) && s[field]>=0 && s[field]<=100)result[field]=s[field];
     if(s.override && /^\d{4}-\d{2}-\d{2}$/.test(s.override.date) && Number.isInteger(s.override.minutes) && s.override.minutes>=1 && s.override.minutes<=180) result.override=s.override;
     const t=s.session;
     if(t && s.startDate && ['running','paused','done'].includes(t.status) && Number.isFinite(t.totalMs) && t.totalMs>0 && Number.isFinite(t.remainingMs) && t.remainingMs>=0 && t.remainingMs<=t.totalMs && (t.status!=='running' || Number.isFinite(t.endAt))) result.session=t;
