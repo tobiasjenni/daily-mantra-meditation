@@ -74,5 +74,20 @@ test('Start speaks once; pause/resume, reload, storage synchronization and ticks
     assert.equal(JSON.parse(data.get(KEY)).technique,'vbt-112');assert.equal(speech.length,4);
     elements.get('library-clear').listeners.click();assert.equal(elements.get('library-count').textContent,'112 of 112 techniques');
     elements.get('library-search').value='no-such-technique';elements.get('library-search').listeners.input();assert.equal(elements.get('library-empty').hidden,false);
+    elements.get('library-clear').listeners.click();
+    elements.get('library-visual').checked=true;elements.get('library-visual').listeners.change();
+    assert.notEqual(elements.get('library-count').textContent,'112 of 112 techniques');
+    assert.match(elements.get('library-results').innerHTML,/Visual guide/);
+    elements.get('library-search').value='108';elements.get('library-search').listeners.input();
+    assert.equal(elements.get('library-empty').hidden,false);
+    elements.get('library-clear').listeners.click();assert.equal(elements.get('library-visual').checked,false);
+    elements.get('technique').value='vbt-43';elements.get('technique').listeners.change();
+    assert.equal(elements.get('technique-alternative').hidden,false);assert.match(elements.get('technique-alternative-text').textContent,/hh/);
+    elements.get('technique').value='vbt-44';elements.get('technique').listeners.change();
+    assert.equal(elements.get('technique-alternative').hidden,true);assert.equal(elements.get('technique-alternative-text').textContent,'');
+    assert.equal(elements.get('visual-help').hidden,false);assert.match(elements.get('visual-content').innerHTML,/A-U-M/);
+    elements.get('technique').value='mantra';elements.get('technique').listeners.change();
+    assert.equal(elements.get('visual-help').hidden,true);assert.equal(elements.get('visual-content').innerHTML,'');
+    assert.equal(elements.get('technique-context').hidden,true);
   } finally {globalThis.setInterval=realInterval;Date.now=realNow;}
 });
