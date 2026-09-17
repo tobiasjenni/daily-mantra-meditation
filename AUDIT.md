@@ -1,3 +1,11 @@
+# Direct book text — 17 September 2026
+
+At the user’s request, the public app now withholds all previous app-written meditation guides, titles, and diagrams. Only supplied book passages are displayed: excerpts from entry 10 on page 42 and entry 68 on page 204. No full chapter has been verified. The other 110 numbered slots await the exact edition’s pages. Existing saved technique IDs and timer progress are preserved.
+
+The earlier correction summaries below are historical and have also been replaced in the interface by direct excerpts.
+
+---
+
 # Book-edition correction — 17 September 2026
 
 The previous index-based audit did **not** establish fidelity to Osho's commentary. Its findings below are historical and provisional; they must not be treated as validation of the 112 instructions or diagrams against the user's book.

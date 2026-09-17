@@ -1,9 +1,9 @@
-import {KEY,initialState,plan,remaining,begin,pause,resume,settle,decode} from './core.js';
-import {speakMantra,speakGuidance} from './audio.js';
-import {techniqueById,validTechnique} from './techniques.js';
-import {Soundscape} from './soundscape.js';
-import {setupLibrary,escapeHtml} from './library.js';
-import {renderVisual,visualFor} from './visuals.js';
+import {KEY,initialState,plan,remaining,begin,pause,resume,settle,decode} from './core.js?v=663af7d3c71c';
+import {speakMantra,speakGuidance} from './audio.js?v=663af7d3c71c';
+import {techniqueById,validTechnique} from './techniques.js?v=663af7d3c71c';
+import {Soundscape} from './soundscape.js?v=663af7d3c71c';
+import {setupLibrary,escapeHtml} from './library.js?v=663af7d3c71c';
+import {renderVisual,visualFor} from './visuals.js?v=663af7d3c71c';
 const $=id=>document.getElementById(id);
 let state=initialState();
 let storageOK=true;
@@ -60,6 +60,10 @@ function render() {
     $('technique-meta').textContent=technique.number ? `Technique ${technique.number} · ${technique.kind}`:technique.kind;
     $('technique-steps').innerHTML=technique.steps.map(step=>`<li>${escapeHtml(step)}</li>`).join('');
     $('technique-tip').textContent=technique.tip;
+    $('practice-heading').textContent=technique.id==='mantra'?'How to practice':technique.bookExcerpt?'From the book · excerpts':'Book text pending';
+    $('book-passages').hidden=!technique.bookExcerpt;
+    $('book-passages').innerHTML=(technique.paragraphs || []).map(p=>'<p>'+escapeHtml(p)+'</p>').join('<p class="excerpt-gap" aria-label="Passage omitted">[…]</p>');
+    $('voice').disabled=!speechAvailable || (technique.number && !technique.bookExcerpt);
     $('technique-source').hidden=!technique.source;$('technique-source').href=technique.source || '';
     $('technique-context').hidden=!technique.number;
     $('technique-approach').textContent=technique.approach || '';
@@ -68,10 +72,10 @@ function render() {
     $('technique-source').textContent=technique.sourceLabel || '';
     $('technique-alternative').hidden=!technique.alternative;
     $('technique-alternative-text').textContent=technique.alternative || '';
-    $('visual-help').hidden=!visualFor(technique.number);
-    $('visual-content').innerHTML=renderVisual(technique.number);
+    $('visual-help').hidden=true;
+    $('visual-content').innerHTML='';
     $('voice-label').textContent=technique.id==='mantra'?'Opening mantra':'Opening guidance';
-    $('voice-description').textContent=!speechAvailable ? 'Speech is unavailable in this browser. Follow the written instructions.' : technique.id==='mantra'?'Baba Nam Kevalam, spoken at the start.':'A short English introduction, spoken at the start.';
+    $('voice-description').textContent=!speechAvailable ? 'Speech is unavailable in this browser. Follow the written instructions.' : technique.id==='mantra'?'Baba Nam Kevalam, spoken at the start.':technique.bookExcerpt?'The photographed verse, read once at the start.':'Opening voice is unavailable until the book text is supplied.';
     lastTechnique=technique.id;updateVoiceChoices();
   }
   const milliseconds=s ? remaining(s,now) : p.minutes*60000;
@@ -122,7 +126,7 @@ $('start').addEventListener('click',()=>{
     if(state.voice){
       const technique=currentTechnique(),onError=()=>feedback('Your device couldn’t play the opening voice. Follow the written instructions and begin silently.');
       if(technique.id==='mantra')speakMantra(window.speechSynthesis,window.SpeechSynthesisUtterance,onError,state.voiceURI);
-      else speakGuidance(window.speechSynthesis,window.SpeechSynthesisUtterance,technique.opening,onError,state.voiceURI);
+      else if(technique.opening) speakGuidance(window.speechSynthesis,window.SpeechSynthesisUtterance,technique.opening,onError,state.voiceURI);
     }
   }
   persist();render();

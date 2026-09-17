@@ -1,52 +1,27 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {techniques,searchTechniques,techniqueById} from './techniques.js';
-import {catalogRows} from './catalog.js';
+import {techniques,techniqueById,searchTechniques} from './techniques.js';
 import {begin,decode,initialState} from './core.js';
-import {practiceNotes} from './practice-notes.js';
-import {visualMap,visualFor,renderVisual} from './visuals.js';
-test('the complete library has each number 1–112 exactly once and preserves the original mantra',()=>{
+test('all numbered slots and saved IDs survive the switch to supplied book text',()=>{
   assert.equal(techniques.length,113);assert.equal(new Set(techniques.map(t=>t.id)).size,113);
   assert.deepEqual(techniques.filter(t=>t.number).map(t=>t.number),Array.from({length:112},(_,i)=>i+1));
-  assert.ok(catalogRows.every(row=>row.length===9));
-  for(const t of techniques.filter(t=>t.number)){
-    assert.equal(t.steps.length,3);assert.ok(t.steps.every(s=>typeof s==='string'&&s.length>30));
-    assert.ok(t.tip.length>30);assert.ok(t.opening.length>50);assert.ok(t.source.startsWith('https://'));
-    assert.equal(decode(JSON.stringify(begin({...initialState(),technique:t.id},1000000,'UTC'))).session.technique,t.id);
+  for(const [id,number] of [['breath',1],['gaze',18],['listening',38],['joy',51]]){
+    assert.equal(techniqueById(id).number,number);
+    assert.equal(decode(JSON.stringify(begin({...initialState(),technique:id},1000000,'UTC'))).session.technique,id);
   }
-  assert.equal(techniqueById('mantra').number,undefined);assert.equal(techniqueById('breath').number,1);assert.equal(techniqueById('joy').number,51);
+  assert.equal(techniqueById('mantra').steps.length,3);
 });
-
-test('every entry has an individual editorial note and source page; visual aids are optional and accessible',()=>{
-  assert.equal(Object.keys(practiceNotes).length,112);
-  for(const t of techniques.filter(t=>t.number)){
-    assert.ok(t.sourceNote.length>50,`source note ${t.number}`);
-    if([10,68].includes(t.number)){
-      assert.match(t.bookReview,/Opening page checked/);
-      assert.match(t.bookReview,/continuation unverified/);
-      assert.match(t.sourceLabel,/identified book edition/);
-    }else{
-      assert.match(t.bookReview,/Not yet checked/);
-      assert.match(t.source,/#page=11[0-5]$/);
-      assert.match(t.sourceLabel,/secondary numbered index/);
-    }
-    assert.ok(['Introductory guide','Adapted practice'].includes(t.approach));
-    const graphic=renderVisual(t.number);
-    if(visualFor(t.number)){
-      assert.match(graphic,/role="img"/);assert.match(graphic,/<title/);assert.match(graphic,/<desc/);assert.match(graphic,/<figcaption>/);
-      assert.doesNotMatch(graphic,/<animate|setInterval|autoplay/);
-    }else assert.equal(graphic,'');
-  }
-  assert.ok(Object.keys(visualMap).every(n=>techniques.some(t=>t.number===Number(n))));
-  assert.equal(visualFor(undefined),null);
-  assert.ok(searchTechniques('','all','Adapted').some(t=>t.number===50),'contextual adaptations must also appear under Adapted');
-  assert.ok(techniqueById('vbt-13').alternative);
-  assert.ok(techniqueById('vbt-43').alternative);
+test('missing book text cannot expose or speak an invented practice',()=>{
+  const missing=techniques.filter(t=>t.number&&!t.bookExcerpt);assert.equal(missing.length,110);
+  for(const t of missing){assert.equal(t.opening,'');assert.deepEqual(t.steps,[]);assert.deepEqual(t.paragraphs,[]);assert.equal(t.alternative,null);assert.equal(t.name,'Technique '+t.number);}
+  const caress=techniqueById('vbt-10'),hope=techniqueById('vbt-68');
+  assert.equal(caress.name,'Become the caress');assert.equal(hope.name,'Be hope-less');
+  assert.equal(hope.opening,'As a hen mothers her chicks, mother particular knowings, particular doings, in reality.');
+  assert.equal(caress.opening,'While being caressed, sweet princess, enter the caressing as everlasting life.');
+  assert.ok([caress,hope].every(t=>t.paragraphs.length>0&&t.steps.length===0));
 });
-test('library searches names, phrases, exact numbers, themes, and practice types',()=>{
-  assert.equal(searchTechniques().length,112);assert.deepEqual(searchTechniques('#38').map(t=>t.number),[38]);
-  assert.deepEqual(searchTechniques('112').map(t=>t.number),[112]);assert.equal(searchTechniques('0').length,0);
-  assert.ok(searchTechniques('  BREATH  ').length>0);assert.ok(searchTechniques('', 'Sound').every(t=>t.theme==='Sound'));
-  assert.equal(searchTechniques('', 'all','Adult context').length,3);
-  assert.ok(searchTechniques('', 'Body','Adapted').length>0);assert.equal(searchTechniques('<script>').length,0);
+test('book library searches the supplied text and numbered pending slots',()=>{
+  assert.equal(searchTechniques().length,112);assert.deepEqual(searchTechniques('#68').map(t=>t.number),[68]);
+  assert.deepEqual(searchTechniques('caress').map(t=>t.number),[10]);assert.equal(searchTechniques('gentle care of attention').length,0);
+  assert.equal(searchTechniques('','Awaiting text').length,110);assert.equal(searchTechniques('','Book excerpt').length,2);
 });

@@ -1,4 +1,4 @@
-import {validTechnique} from './techniques.js';
+import {validTechnique} from './techniques.js?v=663af7d3c71c';
 export const KEY = 'daily-mantra-v1';
 export function dayKey(now = Date.now(), zone = Intl.DateTimeFormat().resolvedOptions().timeZone) {
   const parts = new Intl.DateTimeFormat('en-US', {timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);
