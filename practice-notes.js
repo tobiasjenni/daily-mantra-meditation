@@ -1,5 +1,5 @@
-// Editorial review of every numbered entry, 2026-09-17.
-// These are app-specific fidelity notes, not quotations or a verse concordance.
+// Earlier index-based notes are provisional, not verification of Osho's commentary.
+// Only the photographed opening pages of entries 10 and 68 have been checked against the specified edition.
 const rows = `
 1|guide|Keeps attention at the natural transition after inhaling. No timed or deliberate retention is added.
 2|guide|Includes both changes of breath direction, rather than only the pause after inhaling.
@@ -10,7 +10,7 @@ const rows = `
 7|adaptation|Retains the forehead-to-heart sleep image. Claims about controlling dreams or death are not promised, and no advanced subtle-breath method is taught.
 8|guide|Includes both devoted attention and noticing the awareness that knows breathing.
 9|adaptation|The written guide selects supported, motionless rest from a group of methods. The numbered source also mentions remaining with anger, steady gazing, and absorption in sucking. Those are separate alternatives, not stages to combine; this app does not teach the specialized bodily practices behind them.
-10|adaptation|Uses self-touch or fabric as an accessible substitute for receiving a caress; the attentional focus remains tactile absorption.
+10|guide|Osho Tapoban, ISBN 978-9937-758-31-4, page 42: checked against a supplied photograph of the opening page only. Replaces the earlier fabric/self-touch exercise with attention to a welcome loving caress and the present moment. The continuation has not been checked.
 11|adaptation|Keeps subtle bodily sensation as the focus but omits sensory closure and the traditional energy procedure. It is a gentler substitute, not the complete original method.
 12|guide|Explores felt weightlessness while sitting or lying down; physical support remains in place.
 13|guide|Retains five-color imagery associated with the senses and its dissolution. The numbered source also offers a point in space or on a wall as an alternative.
@@ -68,7 +68,7 @@ const rows = `
 65|guide|Questions conceptual purity labels in contemplation; it does not discard hygiene or ethical responsibility.
 66|guide|Restores both difficult relationships and praise or criticism as contrasts. A stranger is offered as an easier starting point.
 67|guide|Keeps ongoing change as the focus, including the mind's attempts to grasp a fixed experience.
-68|guide|Uses caring attention to knowing and doing. The everyday task is an original practical example.
+68|guide|Osho Tapoban, ISBN 978-9937-758-31-4, page 204: checked against a supplied photograph of the opening page only. Replaces the earlier careful-task exercise with returning from dreams of a postponed future to present reality. The continuation has not been checked.
 69|guide|Retains inquiry into the concepts of bondage and freedom without treating material constraints as imaginary.
 70|adaptation|Retains ascending, increasingly subtle light, including release above the crown. The precise traditional centers and measurements are not taught here.
 71|adaptation|Restores connections of imagined light between successive centers. This is a simplified visualization, not an energetic or breath-control procedure.
@@ -117,7 +117,8 @@ const rows = `
 export const practiceNotes = Object.fromEntries(rows.trim().split('\n').map(row=>{
   const [number,approach,note]=row.split('|');
   const n=Number(number),page=n<=14?110:n<=36?111:n<=58?112:n<=80?113:n<=102?114:115;
-  return [n,{approach,note,source:`https://www.satrakshita.com/Books/OshoMeditations.pdf#page=${page}`}];
+  const excerptPage=({10:42,68:204})[n];
+  return [n,{approach,note,bookReview:excerptPage ? 'Opening page checked · p. '+excerptPage+'; continuation unverified' : 'Not yet checked against the Osho Tapoban book',sourceLabel:excerptPage ? 'View the identified book edition ↗' : 'View the secondary numbered index ↗',source:excerptPage ? 'https://www.exoticindiaart.com/book/details/vigyan-bhairav-tantra-book-of-secrets-112-techniques-of-meditation-hbd575/' : `https://www.satrakshita.com/Books/OshoMeditations.pdf#page=${page}`}];
 }));
 export const approachLabels={guide:'Introductory guide',adaptation:'Adapted practice'};
 export const alternatives={

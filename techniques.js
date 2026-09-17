@@ -5,7 +5,7 @@ const original={id:'mantra',name:'Baba Nam Kevalam',kind:'Your original practice
 const savedIds={1:'breath',18:'gaze',38:'listening',51:'joy'};
 export const techniques=[original,...catalogRows.map(([number,name,theme,format,intro,prepare,attend,continuePractice,tip])=>({
   id:savedIds[number] || `vbt-${number}`,number:Number(number),name,theme,format,kind:`${theme} · ${format}`,intro,cue:intro,
-  steps:[prepare,attend,continuePractice],tip,source:practiceNotes[number].source,
+  steps:[prepare,attend,continuePractice],tip,source:practiceNotes[number].source,sourceLabel:practiceNotes[number].sourceLabel,bookReview:practiceNotes[number].bookReview,
   approach:approachLabels[practiceNotes[number].approach],sourceNote:practiceNotes[number].note,alternative:alternatives[number] || null,
   opening:`${intro} ${prepare} ${attend}`
 }))];

@@ -21,7 +21,15 @@ test('every entry has an individual editorial note and source page; visual aids 
   assert.equal(Object.keys(practiceNotes).length,112);
   for(const t of techniques.filter(t=>t.number)){
     assert.ok(t.sourceNote.length>50,`source note ${t.number}`);
-    assert.match(t.source,/#page=11[0-5]$/);
+    if([10,68].includes(t.number)){
+      assert.match(t.bookReview,/Opening page checked/);
+      assert.match(t.bookReview,/continuation unverified/);
+      assert.match(t.sourceLabel,/identified book edition/);
+    }else{
+      assert.match(t.bookReview,/Not yet checked/);
+      assert.match(t.source,/#page=11[0-5]$/);
+      assert.match(t.sourceLabel,/secondary numbered index/);
+    }
     assert.ok(['Introductory guide','Adapted practice'].includes(t.approach));
     const graphic=renderVisual(t.number);
     if(visualFor(t.number)){

@@ -64,6 +64,8 @@ function render() {
     $('technique-context').hidden=!technique.number;
     $('technique-approach').textContent=technique.approach || '';
     $('technique-source-note').textContent=technique.sourceNote || '';
+    $('technique-book-review').textContent=technique.bookReview || '';
+    $('technique-source').textContent=technique.sourceLabel || '';
     $('technique-alternative').hidden=!technique.alternative;
     $('technique-alternative-text').textContent=technique.alternative || '';
     $('visual-help').hidden=!visualFor(technique.number);

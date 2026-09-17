@@ -1,3 +1,23 @@
+# Book-edition correction — 17 September 2026
+
+The previous index-based audit did **not** establish fidelity to Osho's commentary. Its findings below are historical and provisional; they must not be treated as validation of the 112 instructions or diagrams against the user's book.
+
+The user supplied ISBN **978-9937-758-31-4**. The [matching listing](https://www.exoticindiaart.com/book/details/vigyan-bhairav-tantra-book-of-secrets-112-techniques-of-meditation-hbd575/) identifies Osho Tapoban, 387 illustrated pages. A listing identifies the edition; it does not verify its meditation instructions. No accessible full text of this exact edition was located in this review.
+
+| Entry | Supplied evidence | Correction | Remaining work |
+| --- | --- | --- | --- |
+| 10 — Become the caress | Photograph of page 42 | Restores a welcome loving caress and immersion in the present; removes the unsupported fabric/self-touch substitution. | Check the rest of the commentary. |
+| 68 — Be hope-less | Photograph of page 204 | Restores returning from imagined futures to present reality; removes the unsupported careful-task interpretation. | Check the rest of the commentary. |
+| Other 110 entries | No pages from this edition supplied | Now explicitly marked unverified against this book. | Compare each complete entry with the exact edition before revising or certifying it. |
+
+The two corrected guides are original short summaries of the supplied excerpts, not transcriptions or complete commentary summaries. Practical consent language and the distinction between present attention and despair are editorial clarifications. No new illustrations were added to these entries. The remaining diagrams have not been checked against this edition.
+
+Current automated checks cover catalogue completeness, provenance labels, optional visuals, timer behavior, and audio options. They do not establish textual accuracy. Full commentary review requires access to the relevant book pages, including continuations.
+
+---
+
+## Historical index-based audit (superseded as a fidelity claim)
+
 # Audit of the 112 meditation entries
 
 Reviewed 17 September 2026.
