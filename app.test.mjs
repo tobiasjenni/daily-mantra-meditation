@@ -6,7 +6,7 @@ import {KEY} from './core.js';
 test('Start speaks once; pause/resume, reload, storage synchronization and ticks never replay it',async()=>{
   const elements=new Map();
   for(const [,id] of readFileSync(new URL('./index.html',import.meta.url),'utf8').matchAll(/id="([^"]+)"/g)) {
-    elements.set(id,{style:{},value:'6',checked:false,disabled:false,hidden:false,textContent:'',innerHTML:'',listeners:{},addEventListener(name,callback){this.listeners[name]=callback;},showModal(){}});
+    elements.set(id,{style:{},value:'6',checked:false,disabled:false,hidden:false,textContent:'',innerHTML:'',listeners:{},addEventListener(name,callback){this.listeners[name]=callback;},showModal(){this.open=true;},close(){this.open=false;}});
   }
   const windowEvents={};const documentEvents={};const speech=[];const data=new Map();
   globalThis.document={title:'',visibilityState:'visible',getElementById:id=>elements.get(id),addEventListener:(e,fn)=>documentEvents[e]=fn};
@@ -44,5 +44,35 @@ test('Start speaks once; pause/resume, reload, storage synchronization and ticks
     elements.get('silence').listeners.click();
     const muted=JSON.parse(data.get(KEY));assert.equal(muted.voice,false);assert.equal(muted.bell,false);assert.equal(muted.music,false);assert.equal(muted.musicVolume,14);
     elements.get('start').listeners.click();for(let i=0;i<8;i++)await Promise.resolve();assert.equal(speech.length,2);assert.equal(toneCount,18,'silent sessions create no sound');
+    elements.get('reset').listeners.click();
+    const originalDate=JSON.parse(data.get(KEY)).startDate;
+    for(const id of ['breath','listening','gaze','joy']){
+      elements.get('technique').value=id;elements.get('technique').listeners.change();
+      assert.equal(JSON.parse(data.get(KEY)).technique,id);
+      assert.notEqual(elements.get('mantra-title').textContent,'Baba Nam Kevalam');
+      assert.equal(elements.get('technique-source').hidden,false);
+    }
+    elements.get('technique').value='breath';elements.get('technique').listeners.change();
+    assert.equal(speech.length,2,'choosing a technique is silent');
+    elements.get('voice').checked=true;elements.get('voice').listeners.change();
+    elements.get('start').listeners.click();assert.equal(speech.length,3);assert.match(speech[2].text,/natural breath/);
+    assert.equal(elements.get('technique').disabled,true);
+    elements.get('technique').value='gaze';elements.get('technique').listeners.change();
+    assert.equal(JSON.parse(data.get(KEY)).session.technique,'breath','active session technique is locked');
+    elements.get('start').listeners.click();elements.get('start').listeners.click();assert.equal(speech.length,3);
+    await import('./app.js?technique-reload');assert.equal(speech.length,3);
+    assert.equal(elements.get('mantra-title').textContent,'Between two breaths');
+    assert.equal(JSON.parse(data.get(KEY)).startDate,originalDate,'technique changes preserve daily progression');
+    elements.get('reset').listeners.click();assert.equal(elements.get('technique').disabled,false);
+    elements.get('start').listeners.click();assert.equal(speech.length,4,'a new session has one new opening');
+    elements.get('reset').listeners.click();
+    elements.get('library-search').value='112';elements.get('library-theme').value='all';elements.get('library-format').value='all';
+    elements.get('browse-techniques').listeners.click();assert.equal(elements.get('library-dialog').open,true);
+    assert.equal(elements.get('library-count').textContent,'1 of 112 techniques');
+    elements.get('library-results').listeners.click({target:{closest:()=>({dataset:{technique:'vbt-112'}})}});
+    assert.equal(elements.get('library-dialog').open,false);assert.equal(elements.get('mantra-title').textContent,'Resting in open stillness');
+    assert.equal(JSON.parse(data.get(KEY)).technique,'vbt-112');assert.equal(speech.length,4);
+    elements.get('library-clear').listeners.click();assert.equal(elements.get('library-count').textContent,'112 of 112 techniques');
+    elements.get('library-search').value='no-such-technique';elements.get('library-search').listeners.input();assert.equal(elements.get('library-empty').hidden,false);
   } finally {globalThis.setInterval=realInterval;Date.now=realNow;}
 });

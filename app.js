@@ -1,6 +1,8 @@
 import {KEY,initialState,plan,remaining,begin,pause,resume,settle,decode} from './core.js';
-import {speakMantra} from './audio.js';
+import {speakMantra,speakGuidance} from './audio.js';
+import {techniqueById,validTechnique} from './techniques.js';
 import {Soundscape} from './soundscape.js';
+import {setupLibrary,escapeHtml} from './library.js';
 const $=id=>document.getElementById(id);
 let state=initialState();
 let storageOK=true;
@@ -11,12 +13,15 @@ let wakeLock=null;
 let acquiringWakeLock=false;
 let lastPlanDay=null;
 let lastStatus=null;
+let lastTechnique=null;
+function currentTechnique(){return techniqueById(state.session?.technique || state.technique);}
 const speechAvailable='speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
 function updateVoiceChoices(){
   if(!speechAvailable)return;
   const escape=value=>String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
-  const voices=window.speechSynthesis.getVoices().filter(v=>/^(en|hi)(?:-|$)/i.test(v.lang));
-  $('voice-choice').innerHTML='<option value="">Automatic · Hindi or English</option>'+voices.map(v=>`<option value="${escape(v.voiceURI)}">${escape(v.name)} · ${escape(v.lang)}</option>`).join('');
+  const mantra=currentTechnique().id==='mantra';
+  const voices=window.speechSynthesis.getVoices().filter(v=>(mantra ? /^(en|hi)(?:-|$)/i : /^en(?:-|$)/i).test(v.lang));
+  $('voice-choice').innerHTML=`<option value="">Automatic · ${mantra?'Hindi or English':'English'}</option>`+voices.map(v=>`<option value="${escape(v.voiceURI)}">${escape(v.name)} · ${escape(v.lang)}</option>`).join('');
   $('voice-choice').value=voices.some(v=>v.voiceURI===state.voiceURI) ? state.voiceURI:'';
 }
 function feedback(message) {$('feedback').textContent=message;}
@@ -47,19 +52,31 @@ function render() {
   const now=Date.now();const next=settle(state,now);
   if(next!==state){state=next;persist();sound.stopMusic();if(state.bell && audioActive)void sound.playGong(state.gongVolume);releaseAwake();}
   const p=plan(state,now);const s=state.session;const status=s?.status || 'ready';
+  const technique=currentTechnique();
+  if(lastTechnique!==technique.id){
+    $('mantra-title').textContent=technique.name;$('technique-intro').textContent=technique.intro;
+    $('technique').value=technique.id;
+    $('technique-meta').textContent=technique.number ? `Technique ${technique.number} · ${technique.kind}`:technique.kind;
+    $('technique-steps').innerHTML=technique.steps.map(step=>`<li>${escapeHtml(step)}</li>`).join('');
+    $('technique-tip').textContent=technique.tip;
+    $('technique-source').hidden=!technique.source;$('technique-source').href=technique.source || '';
+    $('voice-label').textContent=technique.id==='mantra'?'Opening mantra':'Opening guidance';
+    $('voice-description').textContent=!speechAvailable ? 'Speech is unavailable in this browser. Follow the written instructions.' : technique.id==='mantra'?'Baba Nam Kevalam, spoken at the start.':'A short English introduction, spoken at the start.';
+    lastTechnique=technique.id;updateVoiceChoices();
+  }
   const milliseconds=s ? remaining(s,now) : p.minutes*60000;
   const seconds=Math.ceil(milliseconds/1000);
   const time=`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;
   $('countdown').textContent=time;
   $('ring-progress').style.strokeDashoffset=String(s ? 1-milliseconds/s.totalMs : 0);
-  document.title=status==='running' || status==='paused' ? `${time} · Daily Mantra` : 'Daily Mantra · Baba Nam Kevalam';
+  document.title=status==='running' || status==='paused' ? `${time} · ${technique.name}` : `Daily Mantra · ${technique.name}`;
   $('day-label').textContent=state.startDate ? `DAY ${p.day} OF YOUR PRACTICE` : 'YOUR FIRST DAY';
   const minutes=s ? Math.round(s.totalMs/60000):p.minutes;
   $('timer-note').textContent=status==='done' ? 'Take a quiet moment.' : `${minutes} ${minutes===1?'minute':'minutes'} ${s ? 'for this session':'today'}`;
-  $('timer-caption').textContent={ready:'TIME FOR YOURSELF',running:'RETURN TO YOUR MANTRA',paused:'TAKE YOUR TIME',done:'SESSION COMPLETE'}[status];
-  if(status!==lastStatus){
-    $('session-status').textContent={ready:'Ready when you are.',running:'Baba Nam Kevalam',paused:'Paused. Continue when you’re ready.',done:'Your meditation is complete.'}[status];
-    lastStatus=status;
+  $('timer-caption').textContent={ready:'TIME FOR YOURSELF',running:'REST IN YOUR PRACTICE',paused:'TAKE YOUR TIME',done:'SESSION COMPLETE'}[status];
+  if(`${status}:${technique.id}`!==lastStatus){
+    $('session-status').textContent={ready:'Ready when you are.',running:technique.cue,paused:'Paused. Continue when you’re ready.',done:'Your meditation is complete.'}[status];
+    lastStatus=`${status}:${technique.id}`;
   }
   $('start-label').textContent={ready:'Start meditation',running:'Pause',paused:'Resume meditation',done:'Meditate again'}[status];
   $('play-icon').innerHTML=status==='running' ? '<path d="M6 5h4v14H6zm8 0h4v14h-4z" fill="currentColor"/>' : '<path d="M8 5v14l11-7z" fill="currentColor"/>';
@@ -76,6 +93,8 @@ function render() {
   $('restore-audio').hidden=!(status==='running' && (state.music || state.bell) && !audioActive);
   $('preview-gong').disabled=status==='running' || status==='paused';
   const active=status==='running' || status==='paused';
+  $('technique').disabled=active;
+  $('technique-lock').textContent=active?'Finish or reset this session to change techniques.':'Your choice is saved for next time.';
   for(const id of ['duration','apply-duration','use-plan']) $(id).disabled=active;
   $('rhythm-summary').textContent=`${p.minutes} min · +1 each day`;
   if(lastPlanDay!==p.today && !active){$('duration').value=p.minutes;lastPlanDay=p.today;}
@@ -90,13 +109,23 @@ $('start').addEventListener('click',()=>{
   else if(status==='paused'){state=resume(state);void prepareAudio();void keepAwake();}
   else {
     sound.stopAll();state=begin(state);void prepareAudio();void keepAwake();
-    if(state.voice) speakMantra(window.speechSynthesis,window.SpeechSynthesisUtterance,()=>feedback('Your device couldn’t speak the mantra. You can begin silently: Baba Nam Kevalam.'),state.voiceURI);
+    if(state.voice){
+      const technique=currentTechnique(),onError=()=>feedback('Your device couldn’t play the opening voice. Follow the written instructions and begin silently.');
+      if(technique.id==='mantra')speakMantra(window.speechSynthesis,window.SpeechSynthesisUtterance,onError,state.voiceURI);
+      else speakGuidance(window.speechSynthesis,window.SpeechSynthesisUtterance,technique.opening,onError,state.voiceURI);
+    }
   }
   persist();render();
 });
 $('reset').addEventListener('click',()=>{
   state={...state,session:null};window.speechSynthesis?.cancel();sound.stopAll();releaseAwake();persist();lastPlanDay=null;render();feedback('Timer reset. Your daily progression is unchanged.');
 });
+function selectTechnique(id){
+  if(['running','paused'].includes(state.session?.status) || !validTechnique(id)){$('technique').value=currentTechnique().id;return false;}
+  state={...state,technique:id,session:null};window.speechSynthesis?.cancel();sound.stopAll();persist();render();feedback('');return true;
+}
+$('technique').addEventListener('change',()=>selectTechnique($('technique').value));
+setupLibrary(selectTechnique,()=>['running','paused'].includes(state.session?.status));
 $('bell').addEventListener('change',()=>{state.bell=$('bell').checked;if(!state.bell)sound.stopGong();else if(state.session?.status==='running')void prepareAudio();persist();render();});
 $('voice').addEventListener('change',()=>{state.voice=$('voice').checked;if(!state.voice)window.speechSynthesis?.cancel();persist();render();});
 $('music').addEventListener('change',()=>{state.music=$('music').checked;if(state.music && state.session?.status==='running')void prepareAudio();else syncMusic();persist();render();});
@@ -120,7 +149,7 @@ $('use-plan').addEventListener('click',()=>{state={...state,override:null,sessio
 $('restart-plan').addEventListener('click',()=>$('restart-dialog').showModal());
 $('restart-dialog').addEventListener('close',()=>{
   if($('restart-dialog').returnValue!=='restart')return;
-  state={...initialState(),bell:state.bell,voice:state.voice,voiceURI:state.voiceURI,music:state.music,musicVolume:state.musicVolume,gongVolume:state.gongVolume};window.speechSynthesis?.cancel();sound.stopAll();releaseAwake();persist();lastPlanDay=null;render();feedback('Your next Start begins day one at 6 minutes.');
+  state={...initialState(),technique:state.technique,bell:state.bell,voice:state.voice,voiceURI:state.voiceURI,music:state.music,musicVolume:state.musicVolume,gongVolume:state.gongVolume};window.speechSynthesis?.cancel();sound.stopAll();releaseAwake();persist();lastPlanDay=null;render();feedback('Your next Start begins day one at 6 minutes.');
 });
 window.addEventListener('storage',event=>{
   if(event.key!==KEY && event.key!==null)return;

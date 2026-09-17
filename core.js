@@ -1,3 +1,4 @@
+import {validTechnique} from './techniques.js';
 export const KEY = 'daily-mantra-v1';
 export function dayKey(now = Date.now(), zone = Intl.DateTimeFormat().resolvedOptions().timeZone) {
   const parts = new Intl.DateTimeFormat('en-US', {timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);
@@ -5,7 +6,7 @@ export function dayKey(now = Date.now(), zone = Intl.DateTimeFormat().resolvedOp
   return `${get('year')}-${get('month')}-${get('day')}`;
 }
 export function dayNumber(key) { return Date.parse(`${key}T00:00:00Z`) / 86400000; }
-export function initialState() { return {version:1,startDate:null,zone:null,bell:false,voice:true,voiceURI:null,music:false,musicVolume:25,gongVolume:55,override:null,session:null}; }
+export function initialState() { return {version:1,technique:'mantra',startDate:null,zone:null,bell:false,voice:true,voiceURI:null,music:false,musicVolume:25,gongVolume:55,override:null,session:null}; }
 export function plan(state, now = Date.now()) {
   const today = dayKey(now, state.zone || undefined);
   const day = state.startDate ? Math.max(0, dayNumber(today)-dayNumber(state.startDate))+1 : 1;
@@ -20,7 +21,7 @@ export function begin(state, now = Date.now(), zone = Intl.DateTimeFormat().reso
   const next = structuredClone(state);
   if (!next.startDate) { next.zone=zone; next.startDate=dayKey(now,zone); }
   const totalMs=plan(next,now).minutes*60000;
-  next.session={status:'running',totalMs,remainingMs:totalMs,endAt:now+totalMs};
+  next.session={status:'running',technique:next.technique,totalMs,remainingMs:totalMs,endAt:now+totalMs};
   return next;
 }
 export function pause(state, now = Date.now()) {
@@ -46,10 +47,12 @@ export function decode(raw) {
     if(s.startDate && typeof s.zone!=='string') return fallback;
     if(s.zone) dayKey(Date.now(),s.zone);
     const result={...fallback,startDate:s.startDate,zone:s.zone || null,bell:s.bell===true,voice:s.voice!==false,voiceURI:typeof s.voiceURI==='string' ? s.voiceURI:null,music:s.music===true};
+    if(validTechnique(s.technique))result.technique=s.technique;
     for(const field of ['musicVolume','gongVolume']) if(Number.isFinite(s[field]) && s[field]>=0 && s[field]<=100)result[field]=s[field];
     if(s.override && /^\d{4}-\d{2}-\d{2}$/.test(s.override.date) && Number.isInteger(s.override.minutes) && s.override.minutes>=1 && s.override.minutes<=180) result.override=s.override;
     const t=s.session;
     if(t && s.startDate && ['running','paused','done'].includes(t.status) && Number.isFinite(t.totalMs) && t.totalMs>0 && Number.isFinite(t.remainingMs) && t.remainingMs>=0 && t.remainingMs<=t.totalMs && (t.status!=='running' || Number.isFinite(t.endAt))) result.session=t;
+    if(result.session)result.session={...result.session,technique:validTechnique(t.technique)?t.technique:'mantra'};
     return result;
   } catch { return fallback; }
 }

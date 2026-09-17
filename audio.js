@@ -18,3 +18,15 @@ export function speakMantra(synth, Utterance, onError = () => {}, preferredURI =
     return true;
   } catch { onError(); return false; }
 }
+export function speakGuidance(synth, Utterance, text, onError = () => {}, preferredURI = null) {
+  if(!synth || !Utterance){onError();return false;}
+  try {
+    const voices=synth.getVoices().filter(v=>/^en(?:-|$)/i.test(v.lang));
+    const voice=voices.find(v=>v.voiceURI===preferredURI) || voices[0];
+    const utterance=new Utterance(text);
+    if(voice)utterance.voice=voice;
+    utterance.lang=voice?.lang || 'en-US';utterance.rate=.85;utterance.pitch=1;utterance.volume=1;
+    utterance.onerror=event=>{if(!['canceled','interrupted'].includes(event.error))onError();};
+    synth.cancel();synth.speak(utterance);return true;
+  } catch {onError();return false;}
+}

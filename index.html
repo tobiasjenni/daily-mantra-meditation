@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0d272b">
-  <meta name="description" content="A quiet space for Baba Nam Kevalam meditation. A daily timer with an optional opening voice, ending gong, and ambient music.">
+  <meta name="description" content="Explore 112 meditation techniques inspired by the Vigyan Bhairav Tantra, with original practical guides, a daily timer, and optional voice, gong, and ambient music.">
   <title>Daily Mantra · Baba Nam Kevalam</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./style.css">
   <script type="module" src="./app.js"></script>
@@ -16,7 +16,7 @@
       <section class="meditation" aria-labelledby="mantra-title">
         <div class="eyebrow" id="day-label">YOUR FIRST DAY</div>
         <h1 id="mantra-title">Baba Nam Kevalam</h1>
-        <p class="intro">Settle in. Let the mantra be your focus.</p>
+        <p class="intro" id="technique-intro">Let the mantra be your focus.</p>
         <section class="practice" aria-label="Meditation timer">
           <div class="timer-face">
             <svg class="ring" viewBox="0 0 320 320" aria-hidden="true"><circle class="ring-track" cx="160" cy="160" r="150"/><circle id="ring-progress" class="ring-progress" cx="160" cy="160" r="150" pathLength="1"/></svg>
@@ -27,11 +27,28 @@
         </section>
       </section>
       <aside class="preferences" aria-label="Meditation preferences">
+        <section class="technique-panel" aria-labelledby="technique-heading">
+          <div class="technique-panel-top"><span class="eyebrow">FIND YOUR PRACTICE</span><span class="library-badge">112 techniques</span></div><h2 id="technique-heading">A way into stillness</h2>
+          <label class="small-label" for="technique">Choose your meditation</label>
+          <select id="technique" aria-describedby="technique-lock">
+            <option value="mantra">Baba Nam Kevalam · original practice</option>
+            <optgroup label="Inspired by The Book of Secrets">
+              <option value="breath">Between two breaths · start here</option>
+              <option value="listening">The center of sound</option>
+              <option value="gaze">A loving gaze</option>
+              <option value="joy">Rest in joy</option>
+            </optgroup>
+          </select>
+          <button class="browse-button" id="browse-techniques" type="button">Explore all 112 <span aria-hidden="true">↗</span></button>
+          <p class="fine-print" id="technique-lock">Your choice is saved for next time.</p>
+          <div class="technique-guide" aria-live="polite" aria-atomic="true"><p class="technique-meta" id="technique-meta"></p><h3>How to practice</h3><ol id="technique-steps"></ol><p class="technique-tip" id="technique-tip"></p><a id="technique-source" target="_blank" rel="noopener noreferrer" hidden>Explore the Sanskrit source ↗</a></div>
+          <details class="technique-about"><summary>About the 112 · sources &amp; approach</summary><p>The Vigyan Bhairav Tantra is an ancient collection of meditation approaches, explored in Osho’s <a href="https://shop.osho.com/en/the-book-of-secrets" target="_blank" rel="noopener noreferrer">The Book of Secrets</a>. This library covers all 112 entries in the commonly circulated Reps/Osho sequence. These numbers are not Sanskrit verse numbers; editions arrange and interpret the material differently.</p><p>Titles, steps, and spoken openings are original practical introductions to the traditional ideas, not translations of the verses, reproductions of Osho’s commentary, or Osho recordings. Entries marked “Adapted” use gentler alternatives; other simplifications are explained in the practice notes. Subtle-body language is treated as imagery. These short guides do not replace a full commentary or personal instruction.</p><p>For context, consult the <a href="https://sa.wikibooks.org/wiki/%E0%A4%B5%E0%A4%BF%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8%E0%A4%AD%E0%A5%88%E0%A4%B0%E0%A4%B5" target="_blank" rel="noopener noreferrer">public-domain Sanskrit text</a>, the <a href="https://www.satrakshita.com/Books/OshoMeditations.pdf#page=110" target="_blank" rel="noopener noreferrer">numbered technique index</a>, or <a href="https://tantra112.app/vijnana-bhairava-tantra" target="_blank" rel="noopener noreferrer">Christopher Hareesh Wallis’s translation</a>.</p><p>There is no single best technique for everyone. Start with something comfortable and stop if the practice feels distressing. Baba Nam Kevalam remains your separate, original practice. The timer’s daily progression is this app’s feature, not a prescription from the book. Everyday, bedtime, and adult-context practices do not need to fill a timed sitting.</p></details>
+        </section>
         <section class="sound-panel" aria-labelledby="sound-title">
           <div class="panel-heading"><div><span class="eyebrow">MAKE IT YOURS</span><h2 id="sound-title">Your soundscape</h2></div><button class="quiet-button" id="silence">All sounds off</button></div>
           <p class="panel-intro">A little sound, or complete silence.</p>
           <div class="sound-item">
-            <div class="setting-row"><div><label for="voice">Opening mantra <span class="tag">ONCE</span></label><p id="voice-description">Baba Nam Kevalam, spoken at the start.</p></div><input type="checkbox" id="voice" role="switch" checked aria-describedby="voice-description"></div>
+            <div class="setting-row"><div><label for="voice"><span id="voice-label">Opening mantra</span> <span class="tag">ONCE</span></label><p id="voice-description">Baba Nam Kevalam, spoken at the start.</p></div><input type="checkbox" id="voice" role="switch" checked aria-describedby="voice-description"></div>
             <div class="voice-choice" id="voice-options"><label class="small-label" for="voice-choice">Voice</label><select id="voice-choice"><option value="">Automatic · Hindi or English</option></select><p class="fine-print">Never repeated on pause or resume.</p></div>
           </div>
           <div class="sound-item">
@@ -54,9 +71,17 @@
         <details class="help-panel"><summary>Good to know <span class="expand-icon" aria-hidden="true">+</span></summary><div class="details-content"><p>Keep the page open and your screen awake for reliable sound. A locked phone or suspended browser can delay the gong or interrupt music. The countdown catches up when you return.</p><p>The voice comes from your device; pronunciation and availability vary. Music and gong are generated in your browser, with no paid service.</p><p>Your progress and sound choices are saved in this browser. Clearing site data resets them; they don’t sync between devices.</p></div></details>
       </aside>
     </main>
-    <footer><span>Baba Nam Kevalam</span><span>One moment at a time.</span></footer>
+    <footer><span>Daily Mantra</span><span>One moment at a time.</span></footer>
   </div>
   <dialog id="restart-dialog" aria-labelledby="restart-title"><form method="dialog"><h2 id="restart-title">Begin again?</h2><p>This resets your progression and current timer. Your next Start begins day one at 6 minutes. Your sound choices stay saved.</p><div class="dialog-actions"><button value="cancel" class="small-button">Keep my progress</button><button value="restart" class="primary">Restart practice</button></div></form></dialog>
+  <dialog id="library-dialog" class="library-dialog" aria-labelledby="library-title">
+    <div class="library-header"><div><span class="eyebrow">VIGYAN BHAIRAV TANTRA</span><h2 id="library-title">112 ways to begin</h2></div><form method="dialog"><button class="quiet-button" aria-label="Close technique library">Close</button></form></div>
+    <p class="library-intro">Choose a doorway that feels natural. Each practice has a focus, three steps, and a note to help you begin.</p>
+    <div class="library-filters"><div class="library-search"><label for="library-search" class="small-label">Search by name, number, or phrase</label><input type="search" id="library-search" placeholder="Try breath, sound, or 38" autocomplete="off"></div><div><label class="small-label" for="library-theme">Theme</label><select id="library-theme"><option value="all">All themes</option></select></div><div><label class="small-label" for="library-format">Practice type</label><select id="library-format"><option value="all">All practice types</option></select></div></div>
+    <div class="library-toolbar"><p id="library-count" role="status">112 techniques</p><button id="library-clear" class="text-button" type="button">Clear filters</button></div>
+    <p id="library-lock" class="technique-tip" hidden>Finish or reset your current session before choosing another technique.</p>
+    <div id="library-results" class="library-results"></div><p id="library-empty" class="library-empty" hidden>No techniques match. Try a different word or clear the filters.</p>
+  </dialog>
   <noscript><p class="feedback">Please enable JavaScript to use the meditation timer.</p></noscript>
 </body>
 </html>

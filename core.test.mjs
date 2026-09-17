@@ -60,3 +60,12 @@ test('existing progress migrates without losing the first-session date and indep
 test('a backward clock change cannot extend the countdown beyond the selected session length',()=>{
   const state=begin(initialState(),1000000,'UTC');assert.equal(remaining(state.session,0),360000);
 });
+test('technique selection survives reload and each session retains its own technique',()=>{
+  const s=begin({...initialState(),technique:'listening'},1000000,'UTC');
+  assert.equal(decode(JSON.stringify(s)).session.technique,'listening');
+  const old=structuredClone(s);delete old.technique;delete old.session.technique;
+  const restored=decode(JSON.stringify(old));
+  assert.equal(restored.technique,'mantra');assert.equal(restored.session.technique,'mantra');
+  assert.equal(restored.startDate,s.startDate);assert.equal(restored.session.endAt,s.session.endAt);
+  assert.equal(decode(JSON.stringify({...initialState(),technique:'unknown'})).technique,'mantra');
+});

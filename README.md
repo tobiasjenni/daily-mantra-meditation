@@ -1,5 +1,11 @@
 # Daily Mantra
 
+Choose Baba Nam Kevalam or browse all 112 entries in the commonly circulated Reps/Osho sequence of the Vigyan Bhairav Tantra, explored in Osho’s *The Book of Secrets*. Search by name, number, or phrase, and filter by theme or practice type. Each entry has an original focus, three practical steps, context notes, and a source link. Six gentle starting points are grouped in the chooser. There is no universal ranking. Baba Nam Kevalam is separate from the 112. The app’s increasing daily duration is not prescribed by the book.
+
+The library is an original introductory adaptation of traditional meditation ideas, not a translation or a reproduction of Osho’s commentary. Numbers are technique-index numbers, not Sanskrit verse numbers. Sources and interpretation notes are linked in the app. Forceful, painful, hazardous, and specialized physical motifs have explicitly labeled gentle alternatives; bedtime, everyday, and adult-context practices are identified. Subtle-body language is presented as visualization rather than anatomy. These short guides do not replace a full commentary or personal instruction.
+
+The selected technique is saved locally and locked during a running or paused session. Reset or finish to change it. New practices have optional short English opening guidance; the original mantra keeps its Hindi/English voice behavior. All opening speech occurs once per new session and never on pause, resume, reload, or selection changes. There are no Osho recordings or reproduced book passages.
+
 A small, reusable Baba Nam Kevalam meditation timer. [Open Daily Mantra](https://tobiasjenni.github.io/daily-mantra-meditation/) and press **Start meditation**.
 
 - Day one is six minutes and begins only with the first actual Start.
